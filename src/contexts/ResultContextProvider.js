@@ -2,9 +2,9 @@ import React, { createContext, useContext, useState } from 'react';
 
 const ResultContext = createContext();
 
-const baseUrl = 'https://google-search72.p.rapidapi.com';
+const baseUrl = 'https://google-search74.p.rapidapi.com';
 const API_KEY = '7996327430mshb46281f5da697f1p1a89cejsn52a81eaf64cd';
-const API_HOST = 'google-search72.p.rapidapi.com';
+const API_HOST = 'google-search74.p.rapidapi.com';
 
 export const ResultContextProvider = ({ children }) => {
     const [results, setResults] = useState([]);
@@ -32,7 +32,7 @@ export const ResultContextProvider = ({ children }) => {
             console.log('📦 Data received:', data);
             if (url.includes('/imagesearch')) {
                 setImageResults(data);
-            } else if (url.includes('/search')) {
+            } else if (url.includes('/search') || url.includes('query=')) {
                 setResults(data);
             }
         } catch (error) {

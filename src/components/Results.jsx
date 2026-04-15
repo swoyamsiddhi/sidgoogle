@@ -10,12 +10,12 @@ export const Results = () => {
     useEffect(() => {
         if (searchTerm) {
             if (location.pathname === '/images') {
-                getResults(`/imagesearch?q=${searchTerm}&gl=us&lr=lang_en&num=30&page=1`);
+                getResults(`/?query=${searchTerm}&limit=30`);
             } else {
-                getResults(`/search?q=${searchTerm}&gl=us&lr=lang_en&num=40&page=1`);
+                getResults(`/?query=${searchTerm}&limit=40`);
             }
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        
     }, [searchTerm, location.pathname]);
 
     if (isLoading) return <Loading />;
@@ -24,16 +24,16 @@ export const Results = () => {
         case '/search':
             return (
                 <div className='flex flex-wrap justify-between space-y-6 sm:px-56 p-4'>
-                    {results?.items?.map(({ link, title, snippet, displayLink }, index) => (
+                    {results?.results?.map(({ url, title, description }, index) => (
                         <div key={index} className='md:w-2/5 w-full'>
-                            <a href={link} target="_blank" rel="noreferrer">
-                                <p className='text-xs text-green-700 dark:text-green-400 mb-1'>{displayLink}</p>
+                            <a href={url} target="_blank" rel="noreferrer">
+                                <p className='text-xs text-green-700 dark:text-green-400 mb-1'>{url?.length > 30 ? url.slice(0, 30) + '...' : url}</p>
                                 <p className='text-lg dark:text-blue-300 text-blue-600 hover:underline hover:underline-offset-2'>
                                     {title}
                                 </p>
                             </a>
                             <p className='text-sm dark:text-gray-300 text-gray-600 mt-1'>
-                                {snippet}
+                                {description}
                             </p>
                         </div>
                     ))}
@@ -57,13 +57,13 @@ export const Results = () => {
         case '/news':
             return (
                 <div className='flex flex-col space-y-6 sm:px-56 p-4'>
-                    {results?.items?.map(({ link, title, snippet, displayLink }, index) => (
+                    {results?.results?.map(({ url, title, description }, index) => (
                         <div key={index} className='w-full border-b dark:border-gray-700 pb-4'>
-                            <p className='text-xs text-green-700 dark:text-green-400 mb-1'>{displayLink}</p>
-                            <a href={link} target="_blank" rel="noreferrer">
+                            <p className='text-xs text-green-700 dark:text-green-400 mb-1'>{url?.length > 30 ? url.slice(0, 30) + '...' : url}</p>
+                            <a href={url} target="_blank" rel="noreferrer">
                                 <p className='text-lg dark:text-blue-300 text-blue-600 hover:underline'>{title}</p>
                             </a>
-                            <p className='text-sm dark:text-gray-300 text-gray-600 mt-1'>{snippet}</p>
+                            <p className='text-sm dark:text-gray-300 text-gray-600 mt-1'>{description}</p>
                         </div>
                     ))}
                 </div>

@@ -16,7 +16,7 @@ export const Search = () => {
             setSearchTerm(debouncedValue);
             navigate(`/${tab}?q=${debouncedValue}`);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+    
     }, [debouncedValue]);
 
     return (    
