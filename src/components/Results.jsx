@@ -15,6 +15,7 @@ export const Results = () => {
                 getResults(`/search?q=${searchTerm}&gl=us&lr=lang_en&num=40&page=1`);
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchTerm, location.pathname]);
 
     if (isLoading) return <Loading />;
